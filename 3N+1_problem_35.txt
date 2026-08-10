@@ -1,0 +1,62 @@
+import java.io.*;
+import java.util.*;
+import java.text.*;
+import java.math.*;
+import java.util.regex.*;
+
+
+public class Main {
+
+    static int cycleLength(long n) {
+        int count = 1;
+
+        while (n != 1) {
+
+            if (n % 2 == 0) {
+                n = n / 2;
+            } else {
+                n = 3 * n + 1;
+            }
+
+            count++;
+        }
+
+        return count;
+    }
+
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+
+        int i = sc.nextInt();
+        int j = sc.nextInt();
+
+        // Store original values
+        int originalI = i;
+        int originalJ = j;
+
+        // Swap if i > j
+        if (i > j) {
+            int temp = i;
+            i = j;
+            j = temp;
+        }
+
+        int maxCycleLength = 0;
+
+        for (int n = i; n <= j; n++) {
+
+            int length = cycleLength(n);
+
+            if (length > maxCycleLength) {
+                maxCycleLength = length;
+            }
+        }
+
+        // Print original i and j
+        System.out.println(originalI + " " + originalJ + " " + maxCycleLength);
+
+        sc.close();
+    
+    }
+}
