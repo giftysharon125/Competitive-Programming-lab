@@ -1,0 +1,40 @@
+import java.util.*;
+
+public class Solution {
+    static class Node {
+        Node[] c = new Node[26];
+        boolean end;
+    }
+
+    static Node root = new Node();
+
+    static void insert(String s) {
+        Node p = root;
+        for (char x : s.toCharArray()) {
+            int i = x - 'a';
+            if (p.c[i] == null) p.c[i] = new Node();
+            p = p.c[i];
+        }
+        p.end = true;
+    }
+
+    static boolean search(String s) {
+        Node p = root;
+        for (char x : s.toCharArray()) {
+            int i = x - 'a';
+            if (p.c[i] == null) return false;
+            p = p.c[i];
+        }
+        return p.end;
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        String[] a = sc.next().split(",");
+
+        for (String s : a) insert(s.trim());
+
+        System.out.println(search(sc.next().trim()) ? 1 : 0);
+    }
+}
