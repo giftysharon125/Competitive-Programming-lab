@@ -1,0 +1,34 @@
+import java.util.*;
+
+public class Solution {
+    static long[] egcd(long a, long b) {
+        if (b == 0) return new long[]{a, 1, 0};
+        long[] t = egcd(b, a % b);
+        return new long[]{t[0], t[2], t[1] - a / b * t[2]};
+    }
+
+    public static void main(String[] args) {
+        Scanner s = new Scanner(System.in);
+        long A = s.nextLong(), B = s.nextLong();
+
+        long[] t = egcd(A, B);
+        long d = t[0], x = t[1], y = t[2];
+        long p = B / d, q = A / d;
+        long k = Math.round(-(double)x / p);
+
+        long bx = x, by = y;
+
+        for (long i = k - 2; i <= k + 2; i++) {
+            long nx = x + i * p, ny = y - i * q;
+            long c = Math.abs(nx) + Math.abs(ny);
+            long b = Math.abs(bx) + Math.abs(by);
+
+            if (c < b || c == b && nx <= ny) {
+                bx = nx;
+                by = ny;
+            }
+        }
+
+        System.out.println(bx + " " + by + " " + d);
+    }
+}
